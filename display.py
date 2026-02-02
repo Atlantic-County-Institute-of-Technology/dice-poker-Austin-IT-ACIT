@@ -1,0 +1,108 @@
+# display.py
+# description: A display driver which generates square faces of six-sided die in a terminal interface
+# author: pcostjr
+# created: 1.15.2026
+# last update: 1.16.2026
+
+# dictionary of all possible layer displays for the dices_final
+
+from game_code import dices_final
+
+dlayer = {
+    "top"       : f" ╔═══════════╗ ",
+    "blank"     : f" ║           ║ ",
+    "pip left"  : f" ║  ●        ║ ",
+    "pip center": f" ║     ●     ║ ",
+    "pip right" : f" ║        ●  ║ ",
+    "two pips"  : f" ║  ●     ●  ║ ",
+    "bottom"    : f" ╚═══════════╝ "
+}
+
+
+# display the text output of a list of n dices_final
+def display_dice(dices_final):
+    display = ""
+    dice_count = len(dices_final)
+    # arrange the top layer of the dices_final
+    for i in range(dice_count):
+        display += dlayer["top"]
+    display += "\n"
+    # arrange the second layer
+    for i in range(dice_count):
+        match dices_final[i]:
+            case 1:
+                display += dlayer["blank"]
+            case 2 | 3:
+                display += dlayer["pip left"]
+            case 4 | 5 | 6:
+                display += dlayer["two pips"]
+    display += "\n"
+    # arrange the third layer
+    for i in range(dice_count):
+        match dices_final[i]:
+            case 1 | 3 | 5:
+                display += dlayer["pip center"]
+            case 2 | 4:
+                display += dlayer["blank"]
+            case 6:
+                display += dlayer["two pips"]
+    display += "\n"
+    # arrange the fourth layer
+    for i in range(dice_count):
+        match dices_final[i]:
+            case 1:
+                display += dlayer["blank"]
+            case 2 | 3:
+                display += dlayer["pip right"]
+            case 4 | 5 | 6:
+                display += dlayer["two pips"]
+    display += "\n"
+    # arrange the fifth layer
+    for i in range(dice_count):
+        display += dlayer["bottom"]
+    display += "\n"
+    # add a numerical value to the bottom of each die for use in the menu
+    for i in range(dice_count):
+        display += f"      [{i + 1}]      "
+    return display
+
+
+# storing there here in future in case they are needed.
+die_face_1 = (f"╔═══════════╗\n"
+             f" ║           ║\n"
+             f" ║     ●     ║\n"
+             f" ║           ║\n"
+             f" ╚═══════════╝\n")
+
+
+die_face_2 = (f"╔═══════════╗\n"
+             f" ║  ●        ║\n"
+             f" ║           ║\n"
+             f" ║        ●  ║\n"
+             f" ╚═══════════╝\n")
+
+die_face_3 = (f"╔═══════════╗\n"
+             f" ║  ●        ║\n"
+             f" ║     ●     ║\n"
+             f" ║        ●  ║\n"
+             f" ╚═══════════╝\n")
+
+die_face_4 = (f"╔═══════════╗\n"
+             f" ║  ●     ●  ║\n"
+             f" ║           ║\n"
+             f" ║  ●     ●  ║\n"
+             f" ╚═══════════╝\n")
+
+die_face_5 = (f"╔═══════════╗\n"
+             f" ║  ●     ●  ║\n"
+             f" ║     ●     ║\n"
+             f" ║  ●     ●  ║\n"
+             f" ╚═══════════╝\n")
+
+die_face_6 = (f"╔═══════════╗\n"
+             f" ║  ●     ●  ║\n"
+             f" ║  ●     ●  ║\n"
+             f" ║  ●     ●  ║\n"
+             f" ╚═══════════╝\n")
+
+face_icons = [die_face_1, die_face_2, die_face_3, die_face_4, die_face_5, die_face_6]
